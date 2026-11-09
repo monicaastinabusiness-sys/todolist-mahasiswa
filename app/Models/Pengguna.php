@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Pengguna extends Model
+class Pengguna extends Authenticatable
 {
     protected $table = 'pengguna';
 
@@ -15,8 +15,12 @@ class Pengguna extends Model
         'password',
     ];
 
+    protected $hidden = [
+        'password',
+    ];
+
     public function tugas(): HasMany
     {
-        return $this->hasMany(Tugas::class);
+        return $this->hasMany(Tugas::class, 'pengguna_id');
     }
 }

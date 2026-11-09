@@ -3,473 +3,515 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Semua Tugas</title>
+    <title>Daftar Tugas - To-Do List Mahasiswa</title>
 
     <style>
         * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
         }
 
         body {
-            margin: 0;
+            background: #f4f6fc;
+            color: #253352;
+        }
+
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: #182746;
+            position: fixed;
+            left: 0;
+            top: 0;
             padding: 30px 20px;
-            background: #f3f6fb;
-            font-family: Arial, sans-serif;
-            color: #1f2937;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: auto;
-        }
-
-        h1 {
-            color: #1e3a8a;
-            margin-bottom: 25px;
-        }
-
-        h2 {
-            font-size: 21px;
-            margin-bottom: 15px;
-        }
-
-        .section {
-            background: white;
-            padding: 24px;
-            margin-bottom: 24px;
-            border-radius: 12px;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
-        }
-
-        .task-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            padding: 15px 0;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .task-item:last-child {
-            border-bottom: none;
-        }
-
-        .task-item input[type="checkbox"] {
-            width: 19px;
-            height: 19px;
-            margin-top: 2px;
-            accent-color: #2563eb;
-            flex-shrink: 0;
-        }
-
-        .task-info {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .matkul {
-            font-size: 17px;
-            font-weight: bold;
-            margin-bottom: 7px;
-        }
-
-        .pemilik {
-            font-size: 14px;
-            color: #6b7280;
-        }
-
-        .nama-pengguna {
-            color: #2563eb;
-            font-weight: bold;
-            text-decoration: none;
-        }
-
-        .nama-pengguna:hover {
-            text-decoration: underline;
-        }
-
-        .empty {
-            color: #6b7280;
-            padding: 10px 0;
-        }
-
-        .user-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            padding: 16px 0;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .user-item:last-child {
-            border-bottom: none;
-        }
-
-        .user-info {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .user-name {
-            display: inline-block;
-            font-size: 18px;
-            margin-bottom: 6px;
-        }
-
-        .user-email {
-            color: #6b7280;
-            font-size: 14px;
-            overflow-wrap: anywhere;
-        }
-
-        .button {
-            display: inline-block;
-            background: #2563eb;
             color: white;
-            padding: 10px 14px;
-            border-radius: 7px;
+        }
+
+        .brand {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 45px;
+        }
+
+        .brand span {
+            color: #9c9aff;
+        }
+
+        .menu a {
+            display: block;
+            color: #c5cee1;
             text-decoration: none;
+            padding: 14px 16px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .menu a:hover,
+        .menu a.active {
+            background: #344976;
+            color: white;
+        }
+
+        .logout {
+            position: absolute;
+            bottom: 30px;
+            left: 20px;
+            right: 20px;
+        }
+
+        .logout button {
+            width: 100%;
+            padding: 13px;
+            background: #a83e53;
             border: none;
+            border-radius: 9px;
+            color: white;
             cursor: pointer;
             font-size: 14px;
         }
 
-        .button:hover {
-            background: #1d4ed8;
+        .main {
+            margin-left: 250px;
+            padding: 35px;
         }
 
-        .button-delete {
-            background: #dc2626;
-            flex-shrink: 0;
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+            gap: 15px;
         }
 
-        .button-delete:hover {
-            background: #b91c1c;
+        .topbar h1 {
+            font-size: 26px;
+            color: #1d2b4f;
         }
 
-        .form-group {
-            margin-bottom: 14px;
+        .topbar p {
+            color: #8a94a8;
+            margin-top: 6px;
+            font-size: 14px;
+        }
+
+        .user {
+            background: white;
+            padding: 12px 18px;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.04);
+            font-size: 14px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+        }
+
+        .card p {
+            color: #8790a5;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .card h2 {
+            font-size: 32px;
+            color: #273b69;
+        }
+
+        .card.total {
+            border-left: 5px solid #586fc1;
+        }
+
+        .card.pending {
+            border-left: 5px solid #e7a83e;
+        }
+
+        .card.completed {
+            border-left: 5px solid #36a77a;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: minmax(260px, 0.8fr) minmax(0, 1.7fr);
+            gap: 20px;
+            align-items: start;
+        }
+
+        .content-box {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            min-width: 0;
+        }
+
+        .content-box h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
         }
 
         label {
             display: block;
-            margin-bottom: 6px;
-            font-weight: bold;
+            font-size: 13px;
+            font-weight: 600;
+            margin: 14px 0 7px;
         }
 
-        input[type="text"],
-        input[type="email"],
-        input[type="password"],
-        input[type="date"],
-        textarea,
-        select {
+        input, textarea, select {
             width: 100%;
             padding: 11px;
-            border: 1px solid #d1d5db;
-            border-radius: 7px;
+            border: 1px solid #dce2ec;
+            border-radius: 8px;
             font-size: 14px;
+            background: white;
         }
 
         textarea {
             resize: vertical;
+            min-height: 90px;
         }
 
-        .success {
-            background: #dcfce7;
-            color: #166534;
+        .btn-primary {
+            width: 100%;
             padding: 12px;
-            border-radius: 7px;
-            margin-bottom: 18px;
+            margin-top: 20px;
+            background: #5268b2;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
         }
 
-        .error {
-            color: #b91c1c;
-            margin-top: 5px;
+        .btn-primary:hover {
+            background: #40569c;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 550px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 14px 10px;
+            border-bottom: 1px solid #edf0f6;
             font-size: 13px;
         }
 
-        @media (max-width: 600px) {
-            body {
-                padding: 18px 12px;
+        th {
+            color: #8790a5;
+            font-weight: 600;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 6px 11px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        .status.belum {
+            background: #fff3dc;
+            color: #b57b19;
+        }
+
+        .status.selesai {
+            background: #e0f5eb;
+            color: #26865c;
+        }
+
+        .btn-status {
+            background: #e0ecff;
+            color: #1d4ed8;
+            border: none;
+            padding: 7px 10px;
+            border-radius: 7px;
+            cursor: pointer;
+            margin-bottom: 5px;
+        }
+
+        .btn-delete {
+            background: #fee2e2;
+            color: #b91c1c;
+            border: none;
+            padding: 7px 10px;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .alert {
+            background: #e0f5eb;
+            color: #26865c;
+            padding: 13px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .empty {
+            text-align: center;
+            color: #8790a5;
+            padding: 30px;
+        }
+
+        @media(max-width: 1100px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width: 900px) {
+            .sidebar {
+                width: 200px;
             }
 
-            .section {
-                padding: 17px;
+            .main {
+                margin-left: 200px;
+                padding: 25px;
             }
 
-            .user-item {
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width: 600px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+
+            .brand {
+                margin-bottom: 20px;
+            }
+
+            .logout {
+                position: static;
+                margin-top: 15px;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .topbar {
                 align-items: flex-start;
-                gap: 10px;
-            }
-
-            .user-name {
-                font-size: 17px;
-            }
-
-            .button-delete {
-                padding: 9px 12px;
+                flex-direction: column;
             }
         }
     </style>
 </head>
 
 <body>
-<div class="container">
 
-    <h1>Daftar Semua Tugas</h1>
+    <aside class="sidebar">
+        <div class="brand">To-Do <span>Mahasiswa</span></div>
 
-    @if (session('success'))
-        <div class="success">
-            {{ session('success') }}
+        <nav class="menu">
+            <a href="{{ route('dashboard') }}">▣ Dashboard</a>
+            <a href="{{ route('tugas.index') }}" class="active">☷ Daftar Tugas</a>
+            <a href="{{ route('mata_kuliah.index') }}">▤ Mata Kuliah</a>
+        </nav>
+
+        <div class="logout">
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit">↪ Logout</button>
+            </form>
         </div>
-    @endif
+    </aside>
 
-    @if (session('error'))
-        <div class="error">
-            {{ session('error') }}
-        </div>
-    @endif
+    <main class="main">
 
-    {{-- DAFTAR SEMUA TUGAS --}}
-    <div class="section">
-        <h2>Daftar Tugas</h2>
-
-        @forelse ($tugas as $item)
-            <div class="task-item">
-                <input type="checkbox" disabled aria-label="Tugas">
-
-                <div class="task-info">
-                    <div class="matkul">
-                        {{ $item->mataKuliah?->nama_matkul ?? 'Mata kuliah belum dipilih' }}
-                    </div>
-
-                    <div class="pemilik">
-                        Pengguna:
-                        @if ($item->pengguna)
-                            <a
-                                class="nama-pengguna"
-                                href="{{ route('pengguna.login', $item->pengguna->id) }}"
-                            >
-                                {{ $item->pengguna->nama_pengguna }}
-                            </a>
-                        @else
-                            Belum ditentukan
-                        @endif
-                    </div>
-                </div>
+        <div class="topbar">
+            <div>
+                <h1>Daftar Tugas</h1>
+                <p>Kelola dan pantau semua tugas kuliahmu di sini.</p>
             </div>
-        @empty
-            <p class="empty">Belum ada tugas yang terdaftar.</p>
-        @endforelse
-    </div>
 
-    {{-- DAFTAR PENGGUNA --}}
-    <div class="section">
-        <h2>Daftar Pengguna</h2>
+            <div class="user">
+                {{ Auth::user()->nama_pengguna }}
+            </div>
+        </div>
 
-        @forelse ($pengguna as $user)
-            <div class="user-item">
+        @if(session('success'))
+            <div class="alert">
+                {{ session('success') }}
+            </div>
+        @endif
 
-                <div class="user-info">
-                    <a
-                        class="nama-pengguna user-name"
-                        href="{{ route('pengguna.login', $user->id) }}"
-                    >
-                        {{ $user->nama_pengguna }}
-                    </a>
+        @if($errors->any())
+            <div class="alert" style="background:#fee2e2;color:#991b1b;">
+                Periksa kembali data yang kamu masukkan.
+                <ul style="margin:8px 0 0 20px;">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-                    <div class="user-email">
-                        {{ $user->email }}
-                    </div>
-                </div>
+        @php
+            $total = $tugas->count();
+            $jumlahBelum = $tugas->where('status', 'belum')->count();
+            $jumlahSelesai = $tugas->where('status', 'selesai')->count();
+        @endphp
 
-                <form
-                    action="{{ route('pengguna.destroy', $user->id) }}"
-                    method="POST"
-                    onsubmit="return confirm('Yakin ingin menghapus pengguna {{ $user->nama_pengguna }}? Tugasnya akan tetap tersimpan, tetapi tidak lagi terhubung dengan pengguna ini.');"
-                >
+        <div class="cards">
+            <div class="card total">
+                <p>Total Tugas</p>
+                <h2>{{ $total }}</h2>
+            </div>
+
+            <div class="card pending">
+                <p>Tugas Belum Selesai</p>
+                <h2>{{ $jumlahBelum }}</h2>
+            </div>
+
+            <div class="card completed">
+                <p>Tugas Selesai</p>
+                <h2>{{ $jumlahSelesai }}</h2>
+            </div>
+        </div>
+
+        <div class="content">
+
+            <div class="content-box">
+                <h3>Tambah Tugas</h3>
+
+                <form action="{{ route('tugas.store') }}" method="POST">
                     @csrf
-                    @method('DELETE')
 
-                    <button type="submit" class="button button-delete">
-                        Hapus
+                    <label>Mata Kuliah</label>
+                    <select name="mata_kuliah_id" required>
+                        <option value="">Pilih mata kuliah</option>
+                        @foreach($mataKuliah as $matkul)
+                            <option value="{{ $matkul->id }}"
+                                {{ old('mata_kuliah_id') == $matkul->id ? 'selected' : '' }}>
+                                {{ $matkul->nama_matkul }}
+                            </option>
+                        @endforeach
+                    </select>
+
+                    <label>Deskripsi Tugas</label>
+                    <textarea name="deskripsi" required
+                        placeholder="Masukkan deskripsi tugas">{{ old('deskripsi') }}</textarea>
+
+                    <label>Deadline</label>
+                    <input type="date" name="deadline"
+                        value="{{ old('deadline') }}" required>
+
+                    <label>Status</label>
+                    <select name="status" required>
+                        <option value="belum">Belum Selesai</option>
+                        <option value="selesai">Selesai</option>
+                    </select>
+
+                    <button type="submit" class="btn-primary">
+                        Simpan Tugas
                     </button>
                 </form>
-
-            </div>
-        @empty
-            <p class="empty">Belum ada pengguna.</p>
-        @endforelse
-    </div>
-
-    {{-- FORM TAMBAH PENGGUNA --}}
-    <div class="section">
-        <h2>Tambah Pengguna</h2>
-
-        <form action="{{ route('pengguna.store') }}" method="POST">
-            @csrf
-
-            <div class="form-group">
-                <label for="nama_pengguna">Nama Pengguna</label>
-                <input
-                    type="text"
-                    id="nama_pengguna"
-                    name="nama_pengguna"
-                    value="{{ old('nama_pengguna') }}"
-                    required
-                >
-                @error('nama_pengguna')
-                    <div class="error">{{ $message }}</div>
-                @enderror
             </div>
 
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value="{{ old('email') }}"
-                    required
-                >
-                @error('email')
-                    <div class="error">{{ $message }}</div>
-                @enderror
+            <div class="content-box">
+                <h3>Daftar Tugas</h3>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Mata Kuliah</th>
+                                <th>Deskripsi</th>
+                                <th>Deadline</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @forelse($tugas as $item)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+
+                                    <td>
+                                        {{ $item->mataKuliah->nama_matkul ?? '-' }}
+                                    </td>
+
+                                    <td>{{ $item->deskripsi }}</td>
+
+                                    <td>
+                                        {{ $item->deadline
+                                            ? \Carbon\Carbon::parse($item->deadline)->format('d/m/Y')
+                                            : '-' }}
+                                    </td>
+
+                                    <td>
+                                        <span class="status {{ $item->status }}">
+                                            {{ ucfirst($item->status) }}
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <form action="{{ route('tugas.updateStatus', $item->id) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('PATCH')
+
+                                            <button type="submit" class="btn-status">
+                                                {{ $item->status === 'belum'
+                                                    ? 'Selesaikan'
+                                                    : 'Batalkan' }}
+                                            </button>
+                                        </form>
+
+                                        <form action="{{ route('tugas.destroy', $item->id) }}"
+                                            method="POST"
+                                            onsubmit="return confirm('Yakin ingin menghapus tugas ini?')">
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <button type="submit" class="btn-delete">
+                                                Hapus
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="6" class="empty">
+                                        Belum ada tugas. Silakan tambahkan tugas baru.
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label for="password">Password (minimal 4 karakter)</label>
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    minlength="4"
-                    required
-                >
-                @error('password')
-                    <div class="error">{{ $message }}</div>
-                @enderror
-            </div>
+        </div>
 
-            <button class="button" type="submit">Tambah Pengguna</button>
-        </form>
-    </div>
+    </main>
 
-    {{-- FORM TAMBAH MATA KULIAH --}}
-    <div class="section">
-        <h2>Tambah Mata Kuliah</h2>
-
-        <form action="{{ route('mataKuliah.store') }}" method="POST">
-            @csrf
-
-            <div class="form-group">
-                <label for="nama_matkul">Nama Mata Kuliah</label>
-                <input
-                    type="text"
-                    id="nama_matkul"
-                    name="nama_matkul"
-                    required
-                >
-            </div>
-
-            <div class="form-group">
-                <label for="dosen">Nama Dosen</label>
-                <input
-                    type="text"
-                    id="dosen"
-                    name="dosen"
-                    required
-                >
-            </div>
-
-            <div class="form-group">
-                <label for="semester">Semester</label>
-                <input
-                    type="text"
-                    id="semester"
-                    name="semester"
-                    required
-                >
-            </div>
-
-            <button class="button" type="submit">Tambah Mata Kuliah</button>
-        </form>
-    </div>
-
-    {{-- FORM TAMBAH TUGAS --}}
-    <div class="section">
-        <h2>Tambah Tugas</h2>
-
-        <form action="{{ route('tugas.store') }}" method="POST">
-            @csrf
-
-            <div class="form-group">
-                <label for="nama_tugas">Nama Tugas</label>
-                <input
-                    type="text"
-                    id="nama_tugas"
-                    name="nama_tugas"
-                    value="{{ old('nama_tugas') }}"
-                    required
-                >
-                @error('nama_tugas')
-                    <div class="error">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <div class="form-group">
-                <label for="deskripsi">Deskripsi</label>
-                <textarea
-                    id="deskripsi"
-                    name="deskripsi"
-                    rows="3"
-                >{{ old('deskripsi') }}</textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="deadline">Deadline</label>
-                <input
-                    type="date"
-                    id="deadline"
-                    name="deadline"
-                    value="{{ old('deadline') }}"
-                >
-            </div>
-
-            <div class="form-group">
-                <label for="pengguna_id">Pemilik Tugas</label>
-                <select id="pengguna_id" name="pengguna_id">
-                    <option value="">Pilih Pengguna</option>
-                    @foreach ($pengguna as $user)
-                        <option
-                            value="{{ $user->id }}"
-                            @selected(old('pengguna_id') == $user->id)
-                        >
-                            {{ $user->nama_pengguna }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="mata_kuliah_id">Mata Kuliah</label>
-                <select id="mata_kuliah_id" name="mata_kuliah_id">
-                    <option value="">Pilih Mata Kuliah</option>
-                    @foreach ($mataKuliah as $matkul)
-                        <option
-                            value="{{ $matkul->id }}"
-                            @selected(old('mata_kuliah_id') == $matkul->id)
-                        >
-                            {{ $matkul->nama_matkul }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-
-            <button class="button" type="submit">Tambah Tugas</button>
-        </form>
-    </div>
-
-</div>
 </body>
 </html>
