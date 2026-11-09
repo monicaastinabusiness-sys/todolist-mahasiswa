@@ -76,13 +76,5 @@ Route::middleware('auth')->group(function () {
     Route::delete('/mata-kuliah/{id}', [MataKuliahController::class, 'destroy'])
         ->name('mata_kuliah.destroy');
 
-    // PENGGUNA
-    Route::post('/pengguna', [PenggunaController::class, 'store'])
-        ->name('pengguna.store');
 
-    Route::get('/pengguna/{id}', [PenggunaController::class, 'show'])
-        ->name('pengguna.show');
-
-    Route::delete('/pengguna/{id}', [PenggunaController::class, 'destroy'])
-        ->name('pengguna.destroy');
 });

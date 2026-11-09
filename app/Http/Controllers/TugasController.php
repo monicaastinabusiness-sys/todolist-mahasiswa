@@ -34,8 +34,6 @@ class TugasController extends Controller
         // Pemilik tugas diisi otomatis dari pengguna yang login
         $data['pengguna_id'] = Auth::id();
 
-        // Nama tugas diambil dari deskripsi
-        $data['nama_tugas'] = $data['deskripsi'];
 
         // Simpan tugas ke database
         Tugas::create($data);
